@@ -1,529 +1,229 @@
-/*
-Copyright 2019 @foostan
-Copyright 2020 Drashna Jaelre <@drashna>
+// Copyright 2019 Manna Harbour
+// https://github.com/manna-harbour/miryoku
+// generated -*- buffer-read-only: t -*-
 
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 2 of the License, or
-(at your option) any later version.
+// This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 2 of the License, or (at your option) any later version. This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-#include "keymap_hebrew.h"
-#include "keymap_dvorak.h"
-
-#include QMK_KEYBOARD_H
-#define KC_COMPILE LCTL(KC_F5)
-#define KC_TASKMANAGER LCTL(LSFT(KC_ESC))
-#define KC_COLORPICKER LGUI(LSFT(KC_C))
-
-#define englishLay 0
-#define ctrlQwerty 1
-#define guiQwerty 2
-#define lowerEng 3
-
-#define qwerty 4
-#define qwertyLower 5
-
-#define hebrewLay 6
-#define lowerHeb 7
-
-
-
-#define LEN 10
-enum custom_keycodes {
-    changeToEng = SAFE_RANGE,
-    changeToHeb,
-    changeToQwerty
-};
-
+#include "manna-harbour_miryoku.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  // english - dvorak
-  [englishLay] = LAYOUT_split_3x6_3(
-  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-       KC_TAB, KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,                         KC_F,    KC_G,    KC_C,    KC_R,   KC_L,  KC_BSPC,
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LSFT,  KC_A,    KC_O,    KC_E,    KC_U,    KC_I,                         KC_D,    KC_H,    KC_T,    KC_N, KC_S,  KC_MINS,
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      LM(ctrlQwerty, MOD_LCTL), KC_SCLN,    KC_Q,    KC_J,    KC_K,    KC_X,      KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,  KC_MUTE,
-  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          LM(guiQwerty, MOD_LGUI), KC_LALT,  KC_SPC,     KC_ENT,   MO(lowerEng), KC_EQL
-                                      //`--------------------------'  `--------------------------'
+#if defined MIRYOKU_LAYERS_FLIP
+  [BASE] = LAYOUT_miryoku(
+  #if defined MIRYOKU_ALPHAS_AZERTY
+    KC_A,              KC_Z,              KC_E,              KC_R,              KC_T,              KC_Y,              KC_U,              KC_I,              KC_O,              KC_P,
+    LGUI_T(KC_Q),      LALT_T(KC_S),      LCTL_T(KC_D),      LSFT_T(KC_F),      KC_G,              KC_H,              LSFT_T(KC_J),      LCTL_T(KC_K),      LALT_T(KC_L),      LGUI_T(KC_M),
+    LT(BUTTON, KC_W),  ALGR_T(KC_X),      KC_C,              KC_V,              KC_B,              KC_N,              KC_COMM,           KC_DOT,            ALGR_T(KC_SLSH),   LT(BUTTON, KC_QUOT),
+    U_NP,              U_NP,              LT(FUN, KC_DEL),   LT(NUM, KC_BSPC),  LT(SYM, KC_ENT),   LT(MOUSE, KC_TAB), LT(NAV, KC_SPC),   LT(MEDIA, KC_ESC), U_NP,              U_NP
+  #elif defined MIRYOKU_ALPHAS_COLEMAK
+    KC_Q,              KC_W,              KC_F,              KC_P,              KC_G,              KC_J,              KC_L,              KC_U,              KC_Y,              KC_QUOT,
+    LGUI_T(KC_A),      LALT_T(KC_R),      LCTL_T(KC_S),      LSFT_T(KC_T),      KC_D,              KC_H,              LSFT_T(KC_N),      LCTL_T(KC_E),      LALT_T(KC_I),      LGUI_T(KC_O),
+    LT(BUTTON, KC_Z),  ALGR_T(KC_X),      KC_C,              KC_V,              KC_B,              KC_K,              KC_M,              KC_COMM,           ALGR_T(KC_DOT),    LT(BUTTON, KC_SLSH),
+    U_NP,              U_NP,              LT(FUN, KC_DEL),   LT(NUM, KC_BSPC),  LT(SYM, KC_ENT),   LT(MOUSE, KC_TAB), LT(NAV, KC_SPC),   LT(MEDIA, KC_ESC), U_NP,              U_NP
+  #elif defined MIRYOKU_ALPHAS_COLEMAKDHK
+    KC_Q,              KC_W,              KC_F,              KC_P,              KC_B,              KC_J,              KC_L,              KC_U,              KC_Y,              KC_QUOT,
+    LGUI_T(KC_A),      LALT_T(KC_R),      LCTL_T(KC_S),      LSFT_T(KC_T),      KC_G,              KC_K,              LSFT_T(KC_N),      LCTL_T(KC_E),      LALT_T(KC_I),      LGUI_T(KC_O),
+    LT(BUTTON, KC_Z),  ALGR_T(KC_X),      KC_C,              KC_D,              KC_V,              KC_M,              KC_H,              KC_COMM,           ALGR_T(KC_DOT),    LT(BUTTON, KC_SLSH),
+    U_NP,              U_NP,              LT(FUN, KC_DEL),   LT(NUM, KC_BSPC),  LT(SYM, KC_ENT),   LT(MOUSE, KC_TAB), LT(NAV, KC_SPC),   LT(MEDIA, KC_ESC), U_NP,              U_NP
+  #elif defined MIRYOKU_ALPHAS_DVORAK
+    KC_QUOT,           KC_COMM,           KC_DOT,            KC_P,              KC_Y,              KC_F,              KC_G,              KC_C,              KC_R,              KC_L,
+    LGUI_T(KC_A),      LALT_T(KC_O),      LCTL_T(KC_E),      LSFT_T(KC_U),      KC_I,              KC_D,              LSFT_T(KC_H),      LCTL_T(KC_T),      LALT_T(KC_N),      LGUI_T(KC_S),
+    LT(BUTTON, KC_SLSH), ALGR_T(KC_Q),      KC_J,              KC_K,              KC_X,              KC_B,              KC_M,              KC_W,              ALGR_T(KC_V),      LT(BUTTON, KC_Z),
+    U_NP,              U_NP,              LT(FUN, KC_DEL),   LT(NUM, KC_BSPC),  LT(SYM, KC_ENT),   LT(MOUSE, KC_TAB), LT(NAV, KC_SPC),   LT(MEDIA, KC_ESC), U_NP,              U_NP
+  #elif defined MIRYOKU_ALPHAS_HALMAK
+    KC_W,              KC_L,              KC_R,              KC_B,              KC_Z,              KC_QUOT,           KC_Q,              KC_U,              KC_D,              KC_J,
+    LGUI_T(KC_S),      LALT_T(KC_H),      LCTL_T(KC_N),      LSFT_T(KC_T),      KC_COMM,           KC_DOT,            LSFT_T(KC_A),      LCTL_T(KC_E),      LALT_T(KC_O),      LGUI_T(KC_I),
+    LT(BUTTON, KC_F),  ALGR_T(KC_M),      KC_V,              KC_C,              KC_SLSH,           KC_G,              KC_P,              KC_X,              ALGR_T(KC_K),      LT(BUTTON, KC_Y),
+    U_NP,              U_NP,              LT(FUN, KC_DEL),   LT(NUM, KC_BSPC),  LT(SYM, KC_ENT),   LT(MOUSE, KC_TAB), LT(NAV, KC_SPC),   LT(MEDIA, KC_ESC), U_NP,              U_NP
+  #elif defined MIRYOKU_ALPHAS_WORKMAN
+    KC_Q,              KC_D,              KC_R,              KC_W,              KC_B,              KC_J,              KC_F,              KC_U,              KC_P,              KC_QUOT,
+    LGUI_T(KC_A),      LALT_T(KC_S),      LCTL_T(KC_H),      LSFT_T(KC_T),      KC_G,              KC_Y,              LSFT_T(KC_N),      LCTL_T(KC_E),      LALT_T(KC_O),      LGUI_T(KC_I),
+    LT(BUTTON, KC_Z),  ALGR_T(KC_X),      KC_M,              KC_C,              KC_V,              KC_K,              KC_L,              KC_COMM,           ALGR_T(KC_DOT),    LT(BUTTON, KC_SLSH),
+    U_NP,              U_NP,              LT(FUN, KC_DEL),   LT(NUM, KC_BSPC),  LT(SYM, KC_ENT),   LT(MOUSE, KC_TAB), LT(NAV, KC_SPC),   LT(MEDIA, KC_ESC), U_NP,              U_NP
+  #elif defined MIRYOKU_ALPHAS_QWERTY
+    KC_Q,              KC_W,              KC_E,              KC_R,              KC_T,              KC_Y,              KC_U,              KC_I,              KC_O,              KC_P,
+    LGUI_T(KC_A),      LALT_T(KC_S),      LCTL_T(KC_D),      LSFT_T(KC_F),      KC_G,              KC_H,              LSFT_T(KC_J),      LCTL_T(KC_K),      LALT_T(KC_L),      LGUI_T(KC_QUOT),
+    LT(BUTTON, KC_Z),  ALGR_T(KC_X),      KC_C,              KC_V,              KC_B,              KC_N,              KC_M,              KC_COMM,           ALGR_T(KC_DOT),    LT(BUTTON, KC_SLSH),
+    U_NP,              U_NP,              LT(FUN, KC_DEL),   LT(NUM, KC_BSPC),  LT(SYM, KC_ENT),   LT(MOUSE, KC_TAB), LT(NAV, KC_SPC),   LT(MEDIA, KC_ESC), U_NP,              U_NP
+  #elif defined MIRYOKU_ALPHAS_QWERTZ
+    KC_Q,              KC_W,              KC_E,              KC_R,              KC_T,              KC_Z,              KC_U,              KC_I,              KC_O,              KC_P,
+    LGUI_T(KC_A),      LALT_T(KC_S),      LCTL_T(KC_D),      LSFT_T(KC_F),      KC_G,              KC_H,              LSFT_T(KC_J),      LCTL_T(KC_K),      LALT_T(KC_L),      LGUI_T(KC_QUOT),
+    LT(BUTTON, KC_Y),  ALGR_T(KC_X),      KC_C,              KC_V,              KC_B,              KC_N,              KC_M,              KC_COMM,           ALGR_T(KC_DOT),    LT(BUTTON, KC_SLSH),
+    U_NP,              U_NP,              LT(FUN, KC_DEL),   LT(NUM, KC_BSPC),  LT(SYM, KC_ENT),   LT(MOUSE, KC_TAB), LT(NAV, KC_SPC),   LT(MEDIA, KC_ESC), U_NP,              U_NP
+  #else
+    KC_Q,              KC_W,              KC_F,              KC_P,              KC_B,              KC_J,              KC_L,              KC_U,              KC_Y,              KC_QUOT,
+    LGUI_T(KC_A),      LALT_T(KC_R),      LCTL_T(KC_S),      LSFT_T(KC_T),      KC_G,              KC_M,              LSFT_T(KC_N),      LCTL_T(KC_E),      LALT_T(KC_I),      LGUI_T(KC_O),
+    LT(BUTTON, KC_Z),  ALGR_T(KC_X),      KC_C,              KC_D,              KC_V,              KC_K,              KC_H,              KC_COMM,           ALGR_T(KC_DOT),    LT(BUTTON, KC_SLSH),
+    U_NP,              U_NP,              LT(FUN, KC_DEL),   LT(NUM, KC_BSPC),  LT(SYM, KC_ENT),   LT(MOUSE, KC_TAB), LT(NAV, KC_SPC),   LT(MEDIA, KC_ESC), U_NP,              U_NP
+  #endif
   ),
-    [lowerEng] = LAYOUT_split_3x6_3(
-  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-       KC_ESC,  KC_TASKMANAGER, KC_7,    KC_8,   KC_9,   KC_RBRC,               KC_LBRC, KC_SLSH  , KC_UP  ,KC_BSLS, XXXXXXX, KC_BSPC,
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LSFT, KC_COMPILE,  KC_4,    KC_5,   KC_6, KC_RPRN,                      KC_LPRN,  KC_LEFT, KC_DOWN,KC_RIGHT,KC_COLORPICKER, KC_GRV,
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LCTL,  KC_0,    KC_1,     KC_2,    KC_3,  changeToHeb ,                 KC_MPLY, KC_MNXT, KC_MPRV, XXXXXXX, XXXXXXX, changeToQwerty,
-  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_LGUI, KC_LALT,  KC_SPC,     KC_ENT, KC_TRNS, KC_EQL
-                                      //`--------------------------'  `--------------------------'
+  #if defined MIRYOKU_NAV_INVERTEDT
+  [NAV] = LAYOUT_miryoku(
+    KC_PGUP, KC_HOME, KC_UP,   KC_END,  KC_INS,  U_NA,    U_NA,    U_NA,    U_NA,    RESET,
+    KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, KC_CAPS, U_NA,    KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI,
+    U_UND,   U_CUT,   U_CPY,   U_PST,   U_RDO,   U_NA,    U_NA,    U_NA,    KC_ALGR, U_NA,
+    U_NP,    U_NP,    KC_DEL,  KC_BSPC, KC_ENT,  U_NA,    U_NA,    U_NA,    U_NP,    U_NP
   ),
-  [ctrlQwerty] = LAYOUT_split_3x6_3(
-  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-       KC_TAB, DV_QUOT, DV_COMM,  DV_DOT,  DV_P,   DV_Y,                         DV_F,    DV_G,    DV_C,    DV_R,   DV_L,  KC_BSPC,
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LSFT,  DV_A,    DV_O,    DV_E,    DV_U,    DV_I,                         DV_D,    DV_H,    DV_T,    DV_N,    DV_S,  KC_MINS,
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_TRNS, DV_SCLN, DV_Q,    DV_J,    DV_K,    DV_X,                          DV_B,    DV_M,    DV_W,  DV_V, DV_Z,   KC_MUTE,
-  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_TRNS, KC_LALT,  KC_SPC,     KC_ENT, MO(lowerEng), KC_EQL
-                                      //`--------------------------'  `--------------------------'
+  [MOUSE] = LAYOUT_miryoku(
+    KC_WH_U, KC_WH_L, KC_MS_U, KC_WH_R, U_NU,    U_NA,    U_NA,    U_NA,    U_NA,    RESET,
+    KC_WH_D, KC_MS_L, KC_MS_D, KC_MS_R, U_NU,    U_NA,    KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI,
+    U_UND,   U_CUT,   U_CPY,   U_PST,   U_RDO,   U_NA,    U_NA,    U_NA,    KC_ALGR, U_NA,
+    U_NP,    U_NP,    KC_BTN2, KC_BTN3, KC_BTN1, U_NA,    U_NA,    U_NA,    U_NP,    U_NP
   ),
-  [guiQwerty] = LAYOUT_split_3x6_3(
-  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-       KC_TAB, DV_QUOT, DV_COMM, DV_DOT,  DV_P,     DV_Y,                         DV_F,   DV_G,    DV_C,    DV_R,   DV_L,  KC_BSPC,
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LSFT,  DV_A,    DV_O,    DV_E,    DV_U,    DV_I,                         DV_D,    DV_H,    DV_T,    DV_N,   DV_S,  KC_MINS,
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_TRNS, DV_SCLN,  DV_Q,    DV_J,    DV_K,    DV_X,                                 DV_B,    DV_M, DV_W,  DV_V, DV_Z,   KC_MUTE,
-  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_TRNS, KC_LALT,  KC_SPC,     KC_ENT, MO(lowerEng), KC_EQL
-                                      //`--------------------------'  `--------------------------'
+  [MEDIA] = LAYOUT_miryoku(
+    U_NU,    U_NU,    KC_VOLU, U_NU,    U_NU,    U_NA,    U_NA,    U_NA,    U_NA,    RESET,
+    U_NU,    KC_MPRV, KC_VOLD, KC_MNXT, U_NU,    U_NA,    KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI,
+    RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, RGB_TOG, U_NA,    U_NA,    U_NA,    KC_ALGR, U_NA,
+    U_NP,    U_NP,    KC_MUTE, KC_MPLY, KC_MSTP, U_NA,    U_NA,    U_NA,    U_NP,    U_NP
   ),
-
-  // qwerty
-  [qwerty] = LAYOUT_split_3x6_3(
-  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-       KC_TAB, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,  KC_BSPC,
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LSFT,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                         KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN,  KC_QUOT,
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LCTL, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,   KC_MUTE,
-  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_LGUI, KC_LALT,  KC_SPC,     KC_ENT,   MO(qwertyLower), KC_EQL
-                                      //`--------------------------'  `--------------------------'
+  #else
+  [NAV] = LAYOUT_miryoku(
+    KC_HOME, KC_PGDN, KC_PGUP, KC_END,  KC_INS,  U_NA,    U_NA,    U_NA,    U_NA,    RESET,
+    KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_CAPS, U_NA,    KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI,
+    U_UND,   U_CUT,   U_CPY,   U_PST,   U_RDO,   U_NA,    U_NA,    U_NA,    KC_ALGR, U_NA,
+    U_NP,    U_NP,    KC_DEL,  KC_BSPC, KC_ENT,  U_NA,    U_NA,    U_NA,    U_NP,    U_NP
   ),
-  [qwertyLower] = LAYOUT_split_3x6_3(
-  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-       KC_ESC,  KC_TASKMANAGER, KC_7,    KC_8,   KC_9,   KC_RBRC,                       KC_LBRC, KC_SLSH , KC_UP  ,KC_BSLS, XXXXXXX, KC_BSPC,
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LSFT, KC_COMPILE,  KC_4,    KC_5,   KC_6, KC_RPRN,                      KC_LPRN,  KC_LEFT, KC_DOWN,KC_RIGHT,KC_COLORPICKER, KC_GRV,
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LCTL,  KC_0,    KC_1,     KC_2,    KC_3,  changeToHeb ,                    KC_MPLY, KC_MNXT, KC_MPRV, XXXXXXX, XXXXXXX, changeToEng,
-  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_LGUI, KC_LALT,  KC_SPC,     KC_ENT, KC_TRNS, KC_QUES
-                                      //`--------------------------'  `--------------------------'
+  [MOUSE] = LAYOUT_miryoku(
+    KC_WH_L, KC_WH_D, KC_WH_U, KC_WH_R, U_NU,    U_NA,    U_NA,    U_NA,    U_NA,    RESET,
+    KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, U_NU,    U_NA,    KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI,
+    U_UND,   U_CUT,   U_CPY,   U_PST,   U_RDO,   U_NA,    U_NA,    U_NA,    KC_ALGR, U_NA,
+    U_NP,    U_NP,    KC_BTN2, KC_BTN3, KC_BTN1, U_NA,    U_NA,    U_NA,    U_NP,    U_NP
   ),
-  // hebrew
-  [hebrewLay] = LAYOUT_split_3x6_3(
-  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-       KC_TAB, IL_SLSH,    IL_QUOT,    IL_QOF,    IL_RESH,    IL_ALEF,          IL_TET,    IL_VAV,    IL_FNUN,    IL_FMEM,   IL_PE,  KC_BSPC,
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LSFT,  IL_SHIN,    IL_DALT,    IL_GIML,    IL_KAF,    IL_AYIN,         IL_YOD,    IL_HET,    IL_LAMD,    IL_FKAF, IL_FPE,  IL_COMM,
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LCTL, IL_ZAYN,  IL_SMKH, IL_BET,    IL_HE,  IL_NUN,                 IL_MEM,    IL_TSDI, IL_TAV,  IL_FTSD, IL_DOT,   KC_MUTE,
-  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_LGUI, KC_LALT,  KC_SPC,     KC_ENT,   MO(lowerHeb), IL_EQL
-                                      //`--------------------------'  `--------------------------'
+  [MEDIA] = LAYOUT_miryoku(
+    RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, RGB_TOG, U_NA,    U_NA,    U_NA,    U_NA,    RESET,
+    KC_MPRV, KC_VOLD, KC_VOLU, KC_MNXT, U_NU,    U_NA,    KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI,
+    U_NU,    U_NU,    U_NU,    U_NU,    U_NU,    U_NA,    U_NA,    U_NA,    KC_ALGR, U_NA,
+    U_NP,    U_NP,    KC_MUTE, KC_MPLY, KC_MSTP, U_NA,    U_NA,    U_NA,    U_NP,    U_NP
   ),
-  [lowerHeb] = LAYOUT_split_3x6_3(
-  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-       KC_ESC,  KC_TASKMANAGER, KC_7,    KC_8,   KC_9,   IL_RBRC,                       IL_LBRC, IL_SLSH  , KC_UP  ,IL_BSLS, XXXXXXX, KC_BSPC,
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LSFT, KC_COMPILE,  KC_4,    KC_5,   KC_6, IL_RPRN,                      IL_LPRN,  KC_LEFT, KC_DOWN,KC_RIGHT,KC_COLORPICKER, KC_GRV,
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LCTL,  KC_0,    KC_1,     KC_2,    KC_3,  changeToEng ,                 KC_MPLY, KC_MNXT, KC_MPRV, XXXXXXX, XXXXXXX, changeToQwerty,
-  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_LGUI, KC_LALT,  KC_SPC,     KC_ENT, KC_TRNS, IL_EQL  // LM(lowerheb, )
-                                      //`--------------------------'  `--------------------------'
+  #endif
+  [NUM] = LAYOUT_miryoku(
+    RESET,   U_NA,    U_NA,    U_NA,    U_NA,    KC_LBRC, KC_7,    KC_8,    KC_9,    KC_RBRC,
+    KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, U_NA,    KC_EQL,  KC_4,    KC_5,    KC_6,    KC_SCLN,
+    U_NA,    KC_ALGR, U_NA,    U_NA,    U_NA,    KC_BSLS, KC_1,    KC_2,    KC_3,    KC_GRV,
+    U_NP,    U_NP,    U_NA,    U_NA,    U_NA,    KC_MINS, KC_0,    KC_DOT,  U_NP,    U_NP
+  ),
+  [SYM] = LAYOUT_miryoku(
+    RESET,   U_NA,    U_NA,    U_NA,    U_NA,    KC_LCBR, KC_AMPR, KC_ASTR, KC_LPRN, KC_RCBR,
+    KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, U_NA,    KC_PLUS, KC_DLR,  KC_PERC, KC_CIRC, KC_COLN,
+    U_NA,    KC_ALGR, U_NA,    U_NA,    U_NA,    KC_PIPE, KC_EXLM, KC_AT,   KC_HASH, KC_TILD,
+    U_NP,    U_NP,    U_NA,    U_NA,    U_NA,    KC_UNDS, KC_LPRN, KC_RPRN, U_NP,    U_NP
+  ),
+  [FUN] = LAYOUT_miryoku(
+    RESET,   U_NA,    U_NA,    U_NA,    U_NA,    KC_PSCR, KC_F7,   KC_F8,   KC_F9,   KC_F12,
+    KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, U_NA,    KC_SLCK, KC_F4,   KC_F5,   KC_F6,   KC_F11,
+    U_NA,    KC_ALGR, U_NA,    U_NA,    U_NA,    KC_PAUS, KC_F1,   KC_F2,   KC_F3,   KC_F10,
+    U_NP,    U_NP,    U_NA,    U_NA,    U_NA,    KC_TAB,  KC_SPC,  KC_APP,  U_NP,    U_NP
+  ),
+#else
+  [BASE] = LAYOUT_miryoku(
+  #if defined MIRYOKU_ALPHAS_AZERTY
+    KC_A,              KC_Z,              KC_E,              KC_R,              KC_T,              KC_Y,              KC_U,              KC_I,              KC_O,              KC_P,
+    LGUI_T(KC_Q),      LALT_T(KC_S),      LCTL_T(KC_D),      LSFT_T(KC_F),      KC_G,              KC_H,              LSFT_T(KC_J),      LCTL_T(KC_K),      LALT_T(KC_L),      LGUI_T(KC_M),
+    LT(BUTTON, KC_W),  ALGR_T(KC_X),      KC_C,              KC_V,              KC_B,              KC_N,              KC_COMM,           KC_DOT,            ALGR_T(KC_SLSH),   LT(BUTTON, KC_QUOT),
+    U_NP,              U_NP,              LT(MEDIA, KC_ESC), LT(NAV, KC_SPC),   LT(MOUSE, KC_TAB), LT(SYM, KC_ENT),   LT(NUM, KC_BSPC),  LT(FUN, KC_DEL),   U_NP,              U_NP
+  #elif defined MIRYOKU_ALPHAS_COLEMAK
+    KC_Q,              KC_W,              KC_F,              KC_P,              KC_G,              KC_J,              KC_L,              KC_U,              KC_Y,              KC_QUOT,
+    LGUI_T(KC_A),      LALT_T(KC_R),      LCTL_T(KC_S),      LSFT_T(KC_T),      KC_D,              KC_H,              LSFT_T(KC_N),      LCTL_T(KC_E),      LALT_T(KC_I),      LGUI_T(KC_O),
+    LT(BUTTON, KC_Z),  ALGR_T(KC_X),      KC_C,              KC_V,              KC_B,              KC_K,              KC_M,              KC_COMM,           ALGR_T(KC_DOT),    LT(BUTTON, KC_SLSH),
+    U_NP,              U_NP,              LT(MEDIA, KC_ESC), LT(NAV, KC_SPC),   LT(MOUSE, KC_TAB), LT(SYM, KC_ENT),   LT(NUM, KC_BSPC),  LT(FUN, KC_DEL),   U_NP,              U_NP
+  #elif defined MIRYOKU_ALPHAS_COLEMAKDHK
+    KC_Q,              KC_W,              KC_F,              KC_P,              KC_B,              KC_J,              KC_L,              KC_U,              KC_Y,              KC_QUOT,
+    LGUI_T(KC_A),      LALT_T(KC_R),      LCTL_T(KC_S),      LSFT_T(KC_T),      KC_G,              KC_K,              LSFT_T(KC_N),      LCTL_T(KC_E),      LALT_T(KC_I),      LGUI_T(KC_O),
+    LT(BUTTON, KC_Z),  ALGR_T(KC_X),      KC_C,              KC_D,              KC_V,              KC_M,              KC_H,              KC_COMM,           ALGR_T(KC_DOT),    LT(BUTTON, KC_SLSH),
+    U_NP,              U_NP,              LT(MEDIA, KC_ESC), LT(NAV, KC_SPC),   LT(MOUSE, KC_TAB), LT(SYM, KC_ENT),   LT(NUM, KC_BSPC),  LT(FUN, KC_DEL),   U_NP,              U_NP
+  #elif defined MIRYOKU_ALPHAS_DVORAK
+    KC_QUOT,           KC_COMM,           KC_DOT,            KC_P,              KC_Y,              KC_F,              KC_G,              KC_C,              KC_R,              KC_L,
+    LGUI_T(KC_A),      LALT_T(KC_O),      LCTL_T(KC_E),      LSFT_T(KC_U),      KC_I,              KC_D,              LSFT_T(KC_H),      LCTL_T(KC_T),      LALT_T(KC_N),      LGUI_T(KC_S),
+    LT(BUTTON, KC_SLSH), ALGR_T(KC_Q),      KC_J,              KC_K,              KC_X,              KC_B,              KC_M,              KC_W,              ALGR_T(KC_V),      LT(BUTTON, KC_Z),
+    U_NP,              U_NP,              LT(MEDIA, KC_ESC), LT(NAV, KC_SPC),   LT(MOUSE, KC_TAB), LT(SYM, KC_ENT),   LT(NUM, KC_BSPC),  LT(FUN, KC_DEL),   U_NP,              U_NP
+  #elif defined MIRYOKU_ALPHAS_HALMAK
+    KC_W,              KC_L,              KC_R,              KC_B,              KC_Z,              KC_QUOT,           KC_Q,              KC_U,              KC_D,              KC_J,
+    LGUI_T(KC_S),      LALT_T(KC_H),      LCTL_T(KC_N),      LSFT_T(KC_T),      KC_COMM,           KC_DOT,            LSFT_T(KC_A),      LCTL_T(KC_E),      LALT_T(KC_O),      LGUI_T(KC_I),
+    LT(BUTTON, KC_F),  ALGR_T(KC_M),      KC_V,              KC_C,              KC_SLSH,           KC_G,              KC_P,              KC_X,              ALGR_T(KC_K),      LT(BUTTON, KC_Y),
+    U_NP,              U_NP,              LT(MEDIA, KC_ESC), LT(NAV, KC_SPC),   LT(MOUSE, KC_TAB), LT(SYM, KC_ENT),   LT(NUM, KC_BSPC),  LT(FUN, KC_DEL),   U_NP,              U_NP
+  #elif defined MIRYOKU_ALPHAS_WORKMAN
+    KC_Q,              KC_D,              KC_R,              KC_W,              KC_B,              KC_J,              KC_F,              KC_U,              KC_P,              KC_QUOT,
+    LGUI_T(KC_A),      LALT_T(KC_S),      LCTL_T(KC_H),      LSFT_T(KC_T),      KC_G,              KC_Y,              LSFT_T(KC_N),      LCTL_T(KC_E),      LALT_T(KC_O),      LGUI_T(KC_I),
+    LT(BUTTON, KC_Z),  ALGR_T(KC_X),      KC_M,              KC_C,              KC_V,              KC_K,              KC_L,              KC_COMM,           ALGR_T(KC_DOT),    LT(BUTTON, KC_SLSH),
+    U_NP,              U_NP,              LT(MEDIA, KC_ESC), LT(NAV, KC_SPC),   LT(MOUSE, KC_TAB), LT(SYM, KC_ENT),   LT(NUM, KC_BSPC),  LT(FUN, KC_DEL),   U_NP,              U_NP
+  #elif defined MIRYOKU_ALPHAS_QWERTY
+    KC_Q,              KC_W,              KC_E,              KC_R,              KC_T,              KC_Y,              KC_U,              KC_I,              KC_O,              KC_P,
+    LGUI_T(KC_A),      LALT_T(KC_S),      LCTL_T(KC_D),      LSFT_T(KC_F),      KC_G,              KC_H,              LSFT_T(KC_J),      LCTL_T(KC_K),      LALT_T(KC_L),      LGUI_T(KC_QUOT),
+    LT(BUTTON, KC_Z),  ALGR_T(KC_X),      KC_C,              KC_V,              KC_B,              KC_N,              KC_M,              KC_COMM,           ALGR_T(KC_DOT),    LT(BUTTON, KC_SLSH),
+    U_NP,              U_NP,              LT(MEDIA, KC_ESC), LT(NAV, KC_SPC),   LT(MOUSE, KC_TAB), LT(SYM, KC_ENT),   LT(NUM, KC_BSPC),  LT(FUN, KC_DEL),   U_NP,              U_NP
+  #elif defined MIRYOKU_ALPHAS_QWERTZ
+    KC_Q,              KC_W,              KC_E,              KC_R,              KC_T,              KC_Z,              KC_U,              KC_I,              KC_O,              KC_P,
+    LGUI_T(KC_A),      LALT_T(KC_S),      LCTL_T(KC_D),      LSFT_T(KC_F),      KC_G,              KC_H,              LSFT_T(KC_J),      LCTL_T(KC_K),      LALT_T(KC_L),      LGUI_T(KC_QUOT),
+    LT(BUTTON, KC_Y),  ALGR_T(KC_X),      KC_C,              KC_V,              KC_B,              KC_N,              KC_M,              KC_COMM,           ALGR_T(KC_DOT),    LT(BUTTON, KC_SLSH),
+    U_NP,              U_NP,              LT(MEDIA, KC_ESC), LT(NAV, KC_SPC),   LT(MOUSE, KC_TAB), LT(SYM, KC_ENT),   LT(NUM, KC_BSPC),  LT(FUN, KC_DEL),   U_NP,              U_NP
+  #else
+    KC_Q,              KC_W,              KC_F,              KC_P,              KC_B,              KC_J,              KC_L,              KC_U,              KC_Y,              KC_QUOT,
+    LGUI_T(KC_A),      LALT_T(KC_R),      LCTL_T(KC_S),      LSFT_T(KC_T),      KC_G,              KC_M,              LSFT_T(KC_N),      LCTL_T(KC_E),      LALT_T(KC_I),      LGUI_T(KC_O),
+    LT(BUTTON, KC_Z),  ALGR_T(KC_X),      KC_C,              KC_D,              KC_V,              KC_K,              KC_H,              KC_COMM,           ALGR_T(KC_DOT),    LT(BUTTON, KC_SLSH),
+    U_NP,              U_NP,              LT(MEDIA, KC_ESC), LT(NAV, KC_SPC),   LT(MOUSE, KC_TAB), LT(SYM, KC_ENT),   LT(NUM, KC_BSPC),  LT(FUN, KC_DEL),   U_NP,              U_NP
+  #endif
+  ),
+  #if defined MIRYOKU_NAV_VI
+  [NAV] = LAYOUT_miryoku(
+    RESET,   U_NA,    U_NA,    U_NA,    U_NA,    U_RDO,   U_PST,   U_CPY,   U_CUT,   U_UND,
+    KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, U_NA,    KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_CAPS,
+    U_NA,    KC_ALGR, U_NA,    U_NA,    U_NA,    KC_HOME, KC_PGDN, KC_PGUP, KC_END,  KC_INS,
+    U_NP,    U_NP,    U_NA,    U_NA,    U_NA,    KC_ENT,  KC_BSPC, KC_DEL,  U_NP,    U_NP
+  ),
+  [MOUSE] = LAYOUT_miryoku(
+    RESET,   U_NA,    U_NA,    U_NA,    U_NA,    U_RDO,   U_PST,   U_CPY,   U_CUT,   U_UND,
+    KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, U_NA,    KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, U_NU,
+    U_NA,    KC_ALGR, U_NA,    U_NA,    U_NA,    KC_WH_L, KC_WH_D, KC_WH_U, KC_WH_R, U_NU,
+    U_NP,    U_NP,    U_NA,    U_NA,    U_NA,    KC_BTN1, KC_BTN3, KC_BTN2, U_NP,    U_NP
+  ),
+  [MEDIA] = LAYOUT_miryoku(
+    RESET,   U_NA,    U_NA,    U_NA,    U_NA,    RGB_TOG, RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI,
+    KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, U_NA,    KC_MPRV, KC_VOLD, KC_VOLU, KC_MNXT, U_NU,
+    U_NA,    KC_ALGR, U_NA,    U_NA,    U_NA,    U_NU,    U_NU,    U_NU,    U_NU,    U_NU,
+    U_NP,    U_NP,    U_NA,    U_NA,    U_NA,    KC_MSTP, KC_MPLY, KC_MUTE, U_NP,    U_NP
+  ),
+  #else
+  [NAV] = LAYOUT_miryoku(
+    RESET,   U_NA,    U_NA,    U_NA,    U_NA,    U_RDO,   U_PST,   U_CPY,   U_CUT,   U_UND,
+    KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, U_NA,    KC_CAPS, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT,
+    U_NA,    KC_ALGR, U_NA,    U_NA,    U_NA,    KC_INS,  KC_HOME, KC_PGDN, KC_PGUP, KC_END,
+    U_NP,    U_NP,    U_NA,    U_NA,    U_NA,    KC_ENT,  KC_BSPC, KC_DEL,  U_NP,    U_NP
+  ),
+  [MOUSE] = LAYOUT_miryoku(
+    RESET,   U_NA,    U_NA,    U_NA,    U_NA,    U_RDO,   U_PST,   U_CPY,   U_CUT,   U_UND,
+    KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, U_NA,    U_NU,    KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R,
+    U_NA,    KC_ALGR, U_NA,    U_NA,    U_NA,    U_NU,    KC_WH_L, KC_WH_D, KC_WH_U, KC_WH_R,
+    U_NP,    U_NP,    U_NA,    U_NA,    U_NA,    KC_BTN1, KC_BTN3, KC_BTN2, U_NP,    U_NP
+  ),
+  [MEDIA] = LAYOUT_miryoku(
+    RESET,   U_NA,    U_NA,    U_NA,    U_NA,    RGB_TOG, RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI,
+    KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, U_NA,    U_NU,    KC_MPRV, KC_VOLD, KC_VOLU, KC_MNXT,
+    U_NA,    KC_ALGR, U_NA,    U_NA,    U_NA,    U_NU,    U_NU,    U_NU,    U_NU,    U_NU,
+    U_NP,    U_NP,    U_NA,    U_NA,    U_NA,    KC_MSTP, KC_MPLY, KC_MUTE, U_NP,    U_NP
+  ),
+  #endif
+  [NUM] = LAYOUT_miryoku(
+    KC_LBRC, KC_7,    KC_8,    KC_9,    KC_RBRC, U_NA,    U_NA,    U_NA,    U_NA,    RESET,
+    KC_SCLN, KC_4,    KC_5,    KC_6,    KC_EQL,  U_NA,    KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI,
+    KC_GRV,  KC_1,    KC_2,    KC_3,    KC_BSLS, U_NA,    U_NA,    U_NA,    KC_ALGR, U_NA,
+    U_NP,    U_NP,    KC_DOT,  KC_0,    KC_MINS, U_NA,    U_NA,    U_NA,    U_NP,    U_NP
+  ),
+  [SYM] = LAYOUT_miryoku(
+    KC_LCBR, KC_AMPR, KC_ASTR, KC_LPRN, KC_RCBR, U_NA,    U_NA,    U_NA,    U_NA,    RESET,
+    KC_COLN, KC_DLR,  KC_PERC, KC_CIRC, KC_PLUS, U_NA,    KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI,
+    KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_PIPE, U_NA,    U_NA,    U_NA,    KC_ALGR, U_NA,
+    U_NP,    U_NP,    KC_LPRN, KC_RPRN, KC_UNDS, U_NA,    U_NA,    U_NA,    U_NP,    U_NP
+  ),
+  [FUN] = LAYOUT_miryoku(
+    KC_F12,  KC_F7,   KC_F8,   KC_F9,   KC_PSCR, U_NA,    U_NA,    U_NA,    U_NA,    RESET,
+    KC_F11,  KC_F4,   KC_F5,   KC_F6,   KC_SLCK, U_NA,    KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI,
+    KC_F10,  KC_F1,   KC_F2,   KC_F3,   KC_PAUS, U_NA,    U_NA,    U_NA,    KC_ALGR, U_NA,
+    U_NP,    U_NP,    KC_APP,  KC_SPC,  KC_TAB,  U_NA,    U_NA,    U_NA,    U_NP,    U_NP
+  ),
+#endif
+  [BUTTON] = LAYOUT_miryoku(
+    U_UND,   U_CUT,   U_CPY,   U_PST,   U_RDO,   U_RDO,   U_PST,   U_CPY,   U_CUT,   U_UND,
+    KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, KC_TRNS, KC_TRNS, KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI,
+    U_UND,   U_CUT,   U_CPY,   U_PST,   U_RDO,   U_RDO,   U_PST,   U_CPY,   U_CUT,   U_UND,
+    U_NP,    U_NP,    KC_BTN2, KC_BTN3, KC_BTN1, KC_BTN1, KC_BTN3, KC_BTN2, U_NP,    U_NP
   )
 };
-
-#ifdef OLED_DRIVER_ENABLE
-oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-  if (!is_master ){ // is_keyboard_left()) {
-    return OLED_ROTATION_180;  // flips the display 180 degrees if offhand
-  }
-  return OLED_ROTATION_270;//rotation;
-}
-
-void oled_render_layer_state(void) {
-
-  static const char PROGMEM dvorak_logo[] = {
-0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
-0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
-0x00, 0xff, 0xff, 0xff, 0x03, 0x03, 0x03, 0x03, 0x07, 0x07, 0x0e, 0x1e, 0xfc, 0xf8, 0xe0, 0x00, 
-0x01, 0x0f, 0x7f, 0xfc, 0xe0, 0x80, 0x00, 0x00, 0x00, 0x00, 0xe0, 0xfc, 0x7f, 0x0f, 0x03, 0x00, 
-0x00, 0xff, 0xff, 0xff, 0xc0, 0xc0, 0xc0, 0xc0, 0xe0, 0xe0, 0x70, 0x78, 0x3f, 0x1f, 0x07, 0x00, 
-0x00, 0x00, 0x00, 0x03, 0x0f, 0x7f, 0xfc, 0xe0, 0xf8, 0x7f, 0x0f, 0x03, 0x00, 0x00, 0x00, 0x00, 
-0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
-0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-};
-
-static const char PROGMEM hebrew_logo[] = {
-0x00, 0x01, 0x03, 0x0f, 0x1f, 0x3f, 0xff, 0xff, 0xff, 0xfe, 0xf8, 0xf0, 0xc0, 0x80, 0x00, 0x00, 
-0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x1f, 0x00, 0x00, 0x00, 
-0x00, 0x00, 0x00, 0x00, 0xc0, 0xe0, 0xf0, 0xf9, 0xff, 0xff, 0xff, 0x7f, 0xff, 0xff, 0xff, 0xfc, 
-0xf8, 0xe0, 0xc0, 0xe0, 0xf0, 0xff, 0xff, 0xff, 0xff, 0x7f, 0x1f, 0x07, 0x00, 0x00, 0x00, 0x00, 
-0x00, 0x00, 0xf8, 0xff, 0xff, 0xff, 0xff, 0xff, 0x3f, 0x03, 0x00, 0x00, 0x01, 0x03, 0x07, 0x1f, 
-0x3f, 0xff, 0xff, 0xff, 0xff, 0xff, 0xf3, 0xe1, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
-0x00, 0xfc, 0xff, 0xff, 0xff, 0xff, 0xff, 0x3f, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
-0x00, 0x00, 0x01, 0x07, 0x0f, 0x1f, 0x7f, 0xff, 0xff, 0xff, 0xfc, 0xf8, 0xf0, 0xc0, 0x80, 0x00
-};
-
-static const char PROGMEM qwerty_logo[] = {
-0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x00, 0x00, 0x00, 
-0x80, 0x80, 0x80, 0x80, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0x80, 0x80, 0x00, 
-0xff, 0xff, 0xff, 0x81, 0x81, 0x81, 0x81, 0x81, 0x81, 0x81, 0x81, 0x81, 0x81, 0x00, 0x00, 0x00, 
-0xff, 0xff, 0xff, 0x07, 0x1f, 0x7e, 0xf8, 0xe0, 0x80, 0x00, 0x00, 0x00, 0xff, 0xff, 0xff, 0x00, 
-0xff, 0xff, 0xff, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x00, 0x00, 0x00, 
-0xff, 0xff, 0xff, 0x00, 0x00, 0x00, 0x01, 0x07, 0x1f, 0x7e, 0xf8, 0xe0, 0xff, 0xff, 0xff, 0x00, 
-0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x00, 0x00, 0x00, 
-0x03, 0x03, 0x03, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x03, 0x03, 0x03, 0x03, 0x00
-};
-
-static const char PROGMEM lower_logo[] = {
-// 'lower', 32x16px
-0xf8, 0x00, 0x00, 0x80, 0xc0, 0x40, 0xc0, 0xc0, 0x00, 0x40, 0xc0, 0x00, 0x00, 0xc0, 0xc0, 0x00, 
-0x00, 0xc0, 0x00, 0x00, 0x80, 0xc0, 0x40, 0x40, 0xc0, 0x00, 0x00, 0xc0, 0xc0, 0x40, 0x40, 0x00, 
-0x1f, 0x00, 0x07, 0x0f, 0x18, 0x10, 0x18, 0x1f, 0x07, 0x00, 0x07, 0x1e, 0x1f, 0x03, 0x03, 0x1e, 
-0x1f, 0x07, 0x00, 0x07, 0x0f, 0x1a, 0x12, 0x12, 0x1b, 0x0b, 0x00, 0x1f, 0x00, 0x00, 0x00, 0x00,
-0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-};
-
-
-static const char PROGMEM cleared[] = {
-// 'lower', 32x16px
-0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-};
-
-    
-    oled_set_cursor(0, 6);
-    switch (get_highest_layer(layer_state)) {
-      case englishLay: case ctrlQwerty: case guiQwerty:
-      {
-        oled_write_raw_P(dvorak_logo, 128);
-        oled_set_cursor(0, 10);
-        oled_write_raw_P(cleared, 128);
-        break;
-      }
-      case lowerEng:
-      {
-        oled_write_raw_P(dvorak_logo, 128);
-        oled_set_cursor(0, 10);
-        oled_write_raw_P(lower_logo, 128);
-        break;
-      }
-      case hebrewLay:
-      {
-        oled_write_raw_P(hebrew_logo, 128);
-        oled_set_cursor(0, 10);
-        oled_write_raw_P(cleared, 128);
-        break;
-      }
-      case lowerHeb:
-      {
-        oled_write_raw_P(hebrew_logo, 128);
-        oled_set_cursor(0, 10);
-        oled_write_raw_P(lower_logo, 128);
-        break;
-      }
-      case qwerty:
-      {
-        oled_write_raw_P(qwerty_logo, 128);
-        oled_set_cursor(0, 10);
-        oled_write_raw_P(cleared, 128);
-        break;
-      }
-      case qwertyLower:
-      {
-        oled_write_raw_P(qwerty_logo, 128);
-        oled_set_cursor(0, 10);
-        oled_write_raw_P(lower_logo, 128);
-        break;
-      }
-      /* text
-      case englishLay:
-      {
-        //oled_write_ln_P(PSTR("Dvorak        "), false);
-        break;
-      }
-      case lowerEng:
-      {
-        oled_write_ln_P(PSTR("Dvorak - Lower"), false);
-        break;
-      }
-      case ctrlQwerty:
-      {
-        oled_write_ln_P(PSTR("Dvorak - Ctrl"), false);
-        break;
-      }
-      case guiQwerty:
-      {
-        oled_write_ln_P(PSTR("Dvorak - GUI  "), false);
-        break;
-      }
-      case hebrewLay:
-      {
-        oled_write_ln_P(PSTR("Hebrew        "), false);
-        break;
-      }
-      case lowerHeb:
-      {
-        oled_write_ln_P(PSTR("Hebrew - Lower"), false);
-        break;
-      }
-      case qwerty:
-      {
-        oled_write_ln_P(PSTR("Qwerty        "), false);
-        break;
-      }
-      case qwertyLower:
-      {
-        oled_write_ln_P(PSTR("Qwerty - Lower"), false);
-        break;
-      }
-      */
-    }
-    //oled_write_P(PSTR("\n\n"), false);
-}
-
-
-//char keylog_str[LEN] = {};
-//unsigned long counter = 0;
-/* 
-const char code_to_name[60] = {
-    ' ', ' ', ' ', ' ', 'a', 'b', 'c', 'd', 'e', 'f',
-    'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p',
-    'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
-    '1', '2', '3', '4', '5', '6', '7', '8', '9', '0',
-    'R', 'E', 'B', 'T', '_', '-', '=', '[', ']', '\\',
-    '#', ';', '\'', '`', ',', '.', '/', ' ', ' ', ' '};
-*/
-/*
-void set_keylog(uint16_t keycode, keyrecord_t *record) {
-  
-   key logger :)
-  char name = ' ';
-  int i = 0;
-  int len = 0;
-  if ((keycode >= QK_MOD_TAP && keycode <= QK_MOD_TAP_MAX) || (keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX)) { keycode = keycode & 0xFF; }
-  if (keycode < 60) {
-    name = code_to_name[keycode];
-
-    len = strlen(keylog_str);
-    if (len < LEN - 1)
-    {
-        keylog_str[len] = name;
-        keylog_str[len + 1] = '\0';
-    }
-    else
-    {
-        for (i = 0; i < LEN - 1; i++)
-        {
-            keylog_str[i] = keylog_str[i + 1];
-        }
-        keylog_str[LEN - 2] = name;
-    }
-
-  }
-
-  // update keylog
-  //snprintf(keylog_str, sizeof(keylog_str), "Key: %d       ", keycode);
-  
-
-  //counter += 1;
-  //snprintf(keylog_str, sizeof(keylog_str), "%lu", counter);
-}
-*/
-/*
-void oled_render_keylog(void) {
-    oled_write(keylog_str, false);
-}
-*/
- /*
-void render_bootmagic_status(bool status) {
-    Show Ctrl-Gui Swap options
-    static const char PROGMEM logo[][2][3] = {
-        {{0x97, 0x98, 0}, {0xb7, 0xb8, 0}},
-        {{0x95, 0x96, 0}, {0xb5, 0xb6, 0}},
-    };
-    if (status) {
-        oled_write_ln_P(logo[0][0], false);
-        oled_write_ln_P(logo[0][1], false);
-    } else {
-        oled_write_ln_P(logo[1][0], false);
-        oled_write_ln_P(logo[1][1], false);
-    }
-}
- */
-
-// render right disp
-void render_YOUR_logo(void) {
-  static const char PROGMEM YOUR_logo[] = { 
-// 'sheika eye + apple logo + hands ', 128x32px
-0x00, 0x00, 0x00, 0x00, 0x40, 0x60, 0x30, 0x10, 0x98, 0x8c, 0x04, 0x00, 0x43, 0x64, 0xeb, 0xcb, 
-0x04, 0x23, 0x50, 0xaa, 0x52, 0x26, 0x0c, 0x18, 0x10, 0x20, 0x60, 0xc0, 0x80, 0x00, 0x00, 0x00, 
-0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xe0, 0xf0, 0xf0, 0xe0, 0xe0, 0xc0, 0x80, 0x80, 0x80, 
-0x80, 0x80, 0xc0, 0xc0, 0xe0, 0xf0, 0xf8, 0xf8, 0xf8, 0xf0, 0xe0, 0xe0, 0xc0, 0x80, 0x00, 0x00, 
-0x00, 0x00, 0x00, 0x10, 0x14, 0x55, 0x55, 0x55, 0x7f, 0x7f, 0x7f, 0xff, 0xff, 0xff, 0x7f, 0x7f, 
-0x3e, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
-0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
-0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
-0x0c, 0x12, 0x2d, 0x2d, 0x12, 0x0c, 0x80, 0xc0, 0xe1, 0x03, 0xf1, 0x8c, 0xc6, 0x23, 0x81, 0x81, 
-0x23, 0xc6, 0x98, 0xe0, 0x80, 0x81, 0xc3, 0xc6, 0xec, 0xe8, 0xe8, 0xc8, 0xcd, 0x87, 0x00, 0x0c, 
-0x1c, 0x7c, 0x7c, 0xf8, 0xf0, 0xe0, 0xcf, 0x3f, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 
-0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x0f, 0x00, 
-0x00, 0xf0, 0xf8, 0xfc, 0xfe, 0xfe, 0xfc, 0xf8, 0xf0, 0xe2, 0xc3, 0x83, 0x01, 0x00, 0x00, 0x00, 
-0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
-0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
-0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
-0x30, 0x48, 0xb4, 0xb4, 0x48, 0x30, 0x01, 0x03, 0x87, 0xc0, 0x8f, 0x31, 0x63, 0xc4, 0x81, 0x81, 
-0xc4, 0x63, 0x19, 0x07, 0x81, 0xc1, 0x73, 0x33, 0x77, 0x67, 0xc7, 0x83, 0x43, 0x81, 0x00, 0x00, 
-0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x70, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 
-0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x78, 0x00, 
-0x00, 0x0f, 0x1f, 0x3f, 0x7f, 0x7f, 0x3f, 0x1f, 0x0f, 0x47, 0xc3, 0xc1, 0x80, 0x00, 0x00, 0x00, 
-0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
-0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
-0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
-0x00, 0x00, 0x00, 0x00, 0x02, 0x06, 0x0c, 0x08, 0x19, 0x31, 0x20, 0x00, 0xc2, 0x26, 0xd7, 0xd3, 
-0x20, 0xc0, 0x04, 0x8e, 0xdb, 0x71, 0x23, 0x06, 0x2c, 0x50, 0xa9, 0x52, 0x25, 0x02, 0x01, 0x00, 
-0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x03, 0x07, 0x07, 0x0f, 0x1f, 0x1f, 0x1f, 0x1f, 0x1f, 
-0x1f, 0x1f, 0x1f, 0x1f, 0x1f, 0x1f, 0x0f, 0x0f, 0x07, 0x07, 0x03, 0x03, 0x01, 0x00, 0x00, 0x00, 
-0x00, 0x00, 0x00, 0x08, 0x2a, 0xaa, 0xaa, 0xaa, 0xfe, 0xfe, 0xfe, 0xff, 0xff, 0xff, 0xfe, 0xfe, 
-0x7c, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
-0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
-0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-};
-  oled_write_raw_P(YOUR_logo, sizeof(YOUR_logo));
-}
-/*
-void oled_render_logo(void) {
-    static const char PROGMEM crkbd_logo[] = {
-        0x80, 0x81, 0x82, 0x83, 0x84, 0x85, 0x86, 0x87, 0x88, 0x89, 0x8a, 0x8b, 0x8c, 0x8d, 0x8e, 0x8f, 0x90, 0x91, 0x92, 0x93, 0x94,
-        0xa0, 0xa1, 0xa2, 0xa3, 0xa4, 0xa5, 0xa6, 0xa7, 0xa8, 0xa9, 0xaa, 0xab, 0xac, 0xad, 0xae, 0xaf, 0xb0, 0xb1, 0xb2, 0xb3, 0xb4,
-        0xc0, 0xc1, 0xc2, 0xc3, 0xc4, 0xc5, 0xc6, 0xc7, 0xc8, 0xc9, 0xca, 0xcb, 0xcc, 0xcd, 0xce, 0xcf, 0xd0, 0xd1, 0xd2, 0xd3, 0xd4,
-        0};
-    oled_write_P(crkbd_logo, false);
-}
-*/
-
-// render displays
-void oled_task_user(void) {
-    if (is_master) {//is_keyboard_left()) {
-        oled_render_layer_state();
-        //oled_render_keylog();
-    } else {
-        render_YOUR_logo();
-    }
-}
-
-// custom keycodes
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  if (record->event.pressed) {
-    //set_keylog(keycode, record);
-    switch (keycode) {
-    case changeToEng:
-    {
-      // change language
-      if (layer_state_is(lowerHeb))
-      {
-      	register_code(KC_LALT);
-      	register_code(KC_LSFT);
-      	unregister_code(KC_LALT);
-      	unregister_code(KC_LSFT);
-      }
-    	layer_move(englishLay);
-    	return false;
-
-      break;
-    }
-    case changeToHeb:
-    {
-      // change language
-    	register_code(KC_LALT);
-    	register_code(KC_LSFT);
-    	unregister_code(KC_LALT);
-    	unregister_code(KC_LSFT);
-    	layer_move(hebrewLay);
-    	return false;
-      break;
-    }
-    case changeToQwerty:
-    {
-      // change language
-      if (layer_state_is(lowerHeb)){
-        register_code(KC_LALT);
-        register_code(KC_LSFT);
-        unregister_code(KC_LALT);
-        unregister_code(KC_LSFT);
-      }
-  	  layer_move(qwerty);
-      return false;
-      break;
-    }
-  }
-  }
-  return true;
-}
-
-#endif // OLED_DRIVER_ENABLE
-/*
-layer_state_t layer_state_set_user(layer_state_t state) {
- 
-switch (get_highest_layer(state)) {
-    case ctrlQwerty:
-    {
-      unregister_code(KC_LGUI);
-      register_code(KC_LCTL);
-      break;
-    }
-    case guiQwerty: case guiLowerQwerty:
-    {
-      unregister_code(KC_LCTL);
-      register_code(KC_LGUI);
-      break;
-    }
-    default:
-    {
-      unregister_code(KC_LGUI);
-      unregister_code(KC_LCTL);
-      break;
-    }
- }
-
- //lastLayer = get_highest_layer(state);
- return state;
- } */
-
-void keyboard_post_init_user(void) {
-  rgblight_enable_noeeprom();
-  rgblight_sethsv_noeeprom(HSV_TEAL); // or even sth. like rgblight_sethsv_noeeprom(HSV_TEAL);
-}
-
-/*
-
-void suspend_power_down_kb(void) {
-    rgb_matrix_set_suspend_state(true);
-    suspend_power_down_user();
-}
-
-void suspend_wakeup_init_kb(void) {
-    rgb_matrix_set_suspend_state(false);
-    suspend_wakeup_init_user();
-}
-
-void suspend_power_down_user(void) {
-    rgb_matrix_set_suspend_state(true);
-}
-
-void suspend_wakeup_init_user(void) {
-    rgb_matrix_set_suspend_state(false);
-}
-*/
