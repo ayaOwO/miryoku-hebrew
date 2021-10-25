@@ -5,9 +5,10 @@
 // This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 2 of the License, or (at your option) any later version. This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 #include "keymap.h"
-
+#include "customKeyCodes.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+
 #if defined MIRYOKU_LAYERS_FLIP
   [BASE] = LAYOUT_miryoku(
   #if defined MIRYOKU_ALPHAS_AZERTY
@@ -115,7 +116,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     U_NP,    U_NP,    U_NA,    U_NA,    U_NA,    KC_TAB,  KC_SPC,  KC_APP,  U_NP,    U_NP
   ),
 #else
-  [BASE] = LAYOUT_miryoku(
+  #if defined MIRYOKU_ALPHAS_DVORAK
+    [BASE] = LAYOUT_split_3x6_3(
+  #else
+    [BASE] = LAYOUT_miryoku(
+  #endif
   #if defined MIRYOKU_ALPHAS_AZERTY
     KC_A,              KC_Z,              KC_E,              KC_R,              KC_T,              KC_Y,              KC_U,              KC_I,              KC_O,              KC_P,
     LGUI_T(KC_Q),      LALT_T(KC_S),      LCTL_T(KC_D),      LSFT_T(KC_F),      KC_G,              KC_H,              LSFT_T(KC_J),      LCTL_T(KC_K),      LALT_T(KC_L),      LGUI_T(KC_M),
@@ -132,10 +137,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     LT(BUTTON, KC_Z),  ALGR_T(KC_X),      KC_C,              KC_D,              KC_V,              KC_M,              KC_H,              KC_COMM,           ALGR_T(KC_DOT),    LT(BUTTON, KC_SLSH),
     U_NP,              U_NP,              LT(MEDIA, KC_ESC), LT(NAV, KC_SPC),   LT(MOUSE, KC_TAB), LT(SYM, KC_ENT),   LT(NUM, KC_BSPC),  LT(FUN, KC_DEL),   U_NP,              U_NP
   #elif defined MIRYOKU_ALPHAS_DVORAK
-    KC_QUOT,           KC_COMM,           KC_DOT,            KC_P,              KC_Y,              KC_F,              KC_G,              KC_C,              KC_R,              KC_L,
-    LGUI_T(KC_A),      LALT_T(KC_O),      LCTL_T(KC_E),      LSFT_T(KC_U),      KC_I,              KC_D,              LSFT_T(KC_H),      LCTL_T(KC_T),      LALT_T(KC_N),      LGUI_T(KC_S),
-    LT(BUTTON, KC_SLSH), ALGR_T(KC_Q),      KC_J,              KC_K,              KC_X,              KC_B,              KC_M,              KC_W,              ALGR_T(KC_V),      LT(BUTTON, KC_Z),
-    U_NP,              U_NP,              LT(MEDIA, KC_ESC), LT(NAV, KC_SPC),   LT(MOUSE, KC_TAB), LT(SYM, KC_ENT),   LT(NUM, KC_BSPC),  LT(FUN, KC_DEL),   U_NP,              U_NP
+    U_NU,           KC_QUOT,             KC_COMM,           KC_DOT,            KC_P,              KC_Y,              KC_F,              KC_G,              KC_C,              KC_R,              KC_L,             U_NU,
+    changeToQwerty, LGUI_T(KC_A),        LALT_T(KC_O),      LCTL_T(KC_E),      LSFT_T(KC_U),      KC_I,              KC_D,              LSFT_T(KC_H),      LCTL_T(KC_T),      LALT_T(KC_N),      LGUI_T(KC_S),     changeToQwerty,
+    changeToHebrew, LT(BUTTON, KC_SLSH), ALGR_T(KC_Q),      KC_J,              KC_K,              KC_X,              KC_B,              KC_M,              KC_W,              ALGR_T(KC_V),      LT(BUTTON, KC_Z), changeToHebrew,
+                                                            LT(MEDIA, KC_ESC), LT(NAV, KC_SPC),   LT(MOUSE, KC_TAB), LT(SYM, KC_ENT),   LT(NUM, KC_BSPC),  LT(FUN, KC_DEL)
   #elif defined MIRYOKU_ALPHAS_HALMAK
     KC_W,              KC_L,              KC_R,              KC_B,              KC_Z,              KC_QUOT,           KC_Q,              KC_U,              KC_D,              KC_J,
     LGUI_T(KC_S),      LALT_T(KC_H),      LCTL_T(KC_N),      LSFT_T(KC_T),      KC_COMM,           KC_DOT,            LSFT_T(KC_A),      LCTL_T(KC_E),      LALT_T(KC_O),      LGUI_T(KC_I),
@@ -228,65 +233,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     U_NP,    U_NP,    KC_BTN2, KC_BTN3, KC_BTN1, KC_BTN1, KC_BTN3, KC_BTN2, U_NP,    U_NP
   ),
   [HEB] = LAYOUT_split_3x6_3(
-    KC_LALT, KC_Q,  KC_W,  KC_F,   KC_P,   KC_B,   KC_J,   KC_L,    KC_U,    KC_Y,   KC_QUOT, KC_LALT,
-    KC_LCTL, KC_A,  KC_R,  KC_S,   KC_T,   KC_G,   KC_M,   KC_N,    KC_E,    KC_I,   KC_O,    KC_LCTL,
-    KC_LSFT, KC_Z,  KC_X,  KC_C,   KC_D,   KC_V,   KC_K,   KC_H,    KC_COMM, KC_DOT, KC_SLSH, KC_LSFT,
-                           KC_ESC, KC_SPC, KC_TAB, KC_ENT, KC_BSPC, KC_DEL
+    U_NU,           KC_Q,              KC_W,              KC_E,              KC_R,              KC_T,              KC_Y,              KC_U,              KC_I,              KC_O,              KC_P,                U_NU,
+    changeToQwerty, LGUI_T(KC_A),      LALT_T(KC_S),      LCTL_T(KC_D),      LSFT_T(KC_F),      KC_G,              KC_H,              LSFT_T(KC_J),      LCTL_T(KC_K),      LALT_T(KC_L),      LGUI_T(KC_QUOT),     changeToQwerty,
+    changeToDvorak, LT(BUTTON, KC_Z),  ALGR_T(KC_X),      KC_C,              KC_V,              KC_B,              KC_N,              KC_M,              KC_COMM,           ALGR_T(KC_DOT),    LT(BUTTON, KC_SLSH), changeToDvorak,
+                                                          LT(FUN, KC_DEL),   LT(NUM, KC_BSPC),  LT(SYM, KC_ENT),   LT(MOUSE, KC_TAB), LT(NAV, KC_SPC),   LT(MEDIA, KC_ESC)
   ),
   [GAME] = LAYOUT_split_3x6_3(
-    KC_LALT, KC_Q,  KC_W,  KC_F,   KC_P,   KC_B,   KC_J,   KC_L,    KC_U,    KC_Y,   KC_QUOT, KC_LALT,
-    KC_LCTL, KC_A,  KC_R,  KC_S,   KC_T,   KC_G,   KC_M,   KC_N,    KC_E,    KC_I,   KC_O,    KC_LCTL,
-    KC_LSFT, KC_Z,  KC_X,  KC_C,   KC_D,   KC_V,   KC_K,   KC_H,    KC_COMM, KC_DOT, KC_SLSH, KC_LSFT,
+    KC_LALT, KC_Q,  KC_W,  KC_E,   KC_R,   KC_T,   KC_Y,   KC_U,    KC_I,    KC_O,   KC_P,    KC_LALT,
+    KC_LCTL, KC_A,  KC_S,  KC_D,   KC_F,   KC_G,   KC_H,   KC_J,    KC_K,    KC_L,   KC_O,    changeToDvorak,
+    KC_LSFT, KC_Z,  KC_X,  KC_C,   KC_V,   KC_B,   KC_N,   KC_M,    KC_COMM, KC_DOT, KC_SLSH, changeToHebrew,
                            KC_ESC, KC_SPC, KC_TAB, KC_ENT, KC_BSPC, KC_DEL
   )
 };
-
-
-// custom keycodes
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  if (record->event.pressed) {
-    //set_keylog(keycode, record);
-    switch (keycode) {
-    case changeToDvorak:
-    {
-      // change language
-      if (layer_state_is(HEB))
-      {
-        register_code(KC_LALT);
-        register_code(KC_LSFT);
-        unregister_code(KC_LALT);
-        unregister_code(KC_LSFT);
-      }
-        layer_move(BASE);
-        return false;
-
-      break;
-    }
-    case changeToHebrew:
-    {
-      // change language
-        register_code(KC_LALT);
-        register_code(KC_LSFT);
-        unregister_code(KC_LALT);
-        unregister_code(KC_LSFT);
-        layer_move(HEB);
-        return false;
-      break;
-    }
-    case changeToQwerty:
-    {
-      // change language
-      if (layer_state_is(HEB)){
-        register_code(KC_LALT);
-        register_code(KC_LSFT);
-        unregister_code(KC_LALT);
-        unregister_code(KC_LSFT);
-      }
-      layer_move(GAME);
-      return false;
-      break;
-    }
-  }
-  }
-  return true;
-}
