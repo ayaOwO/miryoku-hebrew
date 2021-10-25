@@ -11,6 +11,9 @@ AUTO_SHIFT_ENABLE = yes # Auto Shift
 OLED_DRIVER_ENABLE = yes
 # rgb support
 # RGBLIGHT_ENABLE = yes
+# enable if file size is too big
+LTO_ENABLE = yes
+
 # alternative layouts:
 
 # alphas
