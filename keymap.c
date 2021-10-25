@@ -6,9 +6,15 @@
 
 #include "keymap.h"
 #include "customKeyCodes.h"
+#ifdef OLED_DRIVER_ENABLE
+#include "oled.h"
+#endif
+#ifdef RGBLIGHT_ENABLE
+#include "RGBLight.h"
+#endif
+
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-
 #if defined MIRYOKU_LAYERS_FLIP
   [BASE] = LAYOUT_miryoku(
   #if defined MIRYOKU_ALPHAS_AZERTY
