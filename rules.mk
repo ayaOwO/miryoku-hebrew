@@ -7,6 +7,10 @@ MOUSEKEY_ENABLE = yes # Mouse keys
 EXTRAKEY_ENABLE = yes # Audio control and System control
 AUTO_SHIFT_ENABLE = yes # Auto Shift
 
+# oled support
+OLED_DRIVER_ENABLE = yes
+# rgb support
+# RGBLIGHT_ENABLE = yes
 # alternative layouts:
 
 # alphas

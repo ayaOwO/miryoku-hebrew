@@ -1,5 +1,4 @@
-#pragma once
-
+// enables oled support
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     if (!is_master) { // is_keyboard_left()) {
@@ -90,7 +89,6 @@ void oled_render_layer_state(void) {
             oled_write_ln_P(PSTR("SYM"), false);
             break;
         }
-
         case FUN:
         {
             oled_write_ln_P(PSTR("FUN"), false);
