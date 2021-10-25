@@ -6,8 +6,6 @@
 #pragma once
 
 #define EE_HANDS
-#define OLED_FONT_H "keyboards/crkbd/lib/glcdfont.c"
-#define MIRYOKU_ALPHAS_DVORAK
 
 
 // default but used in macros
