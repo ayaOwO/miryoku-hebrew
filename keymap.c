@@ -269,7 +269,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         register_code(KC_LSFT);
         unregister_code(KC_LALT);
         unregister_code(KC_LSFT);
-        layer_move(hebrewLay);
+        layer_move(HEB);
         return false;
       break;
     }
