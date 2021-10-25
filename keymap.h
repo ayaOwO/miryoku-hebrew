@@ -17,14 +17,6 @@
 
 enum layers { BASE, BUTTON, MEDIA, NAV, MOUSE, SYM, NUM, FUN, HEB, GAME };
 
-// custom keycodes used for changing language
-// alt + shift, changes base layer 
-enum custom_keycodes {
-    changeToDvorak = SAFE_RANGE,
-    changeToHebrew,
-    changeToQwerty
-};
-
 #if defined MIRYOKU_CLIPBOARD_FUN
 #define U_RDO KC_AGIN
 #define U_PST KC_PSTE
