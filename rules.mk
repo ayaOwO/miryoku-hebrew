@@ -7,13 +7,6 @@ MOUSEKEY_ENABLE = yes # Mouse keys
 EXTRAKEY_ENABLE = yes # Audio control and System control
 AUTO_SHIFT_ENABLE = yes # Auto Shift
 
-RGBLIGHT_ENABLE = yes
-OLED_DRIVER_ENABLE = yes
-
-
-
-SRC += keymap.c # keymap
-
 # alternative layouts:
 
 # alphas

@@ -12,6 +12,9 @@
 #define U_NA KC_NO // present but not available for use
 #define U_NU KC_NO // available but not used
 
+#define MIRYOKU_ALPHAS_DVORAK
+#define MIRYOKU_CLIPBOARD_WIN
+
 enum layers { BASE, BUTTON, MEDIA, NAV, MOUSE, SYM, NUM, FUN };
 
 #if defined MIRYOKU_CLIPBOARD_FUN
