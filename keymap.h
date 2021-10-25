@@ -15,7 +15,13 @@
 #define MIRYOKU_ALPHAS_DVORAK
 #define MIRYOKU_CLIPBOARD_WIN
 
-enum layers { BASE, BUTTON, MEDIA, NAV, MOUSE, SYM, NUM, FUN };
+enum layers { BASE, BUTTON, MEDIA, NAV, MOUSE, SYM, NUM, FUN, HEB, GAME };
+
+enum custom_keycodes {
+    changeToDvorak = SAFE_RANGE,
+    changeToHebrew,
+    changeToQwerty
+};
 
 #if defined MIRYOKU_CLIPBOARD_FUN
 #define U_RDO KC_AGIN

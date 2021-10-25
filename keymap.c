@@ -226,5 +226,67 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, KC_TRNS, KC_TRNS, KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI,
     U_UND,   U_CUT,   U_CPY,   U_PST,   U_RDO,   U_RDO,   U_PST,   U_CPY,   U_CUT,   U_UND,
     U_NP,    U_NP,    KC_BTN2, KC_BTN3, KC_BTN1, KC_BTN1, KC_BTN3, KC_BTN2, U_NP,    U_NP
+  ),
+  [HEB] = LAYOUT_split_3x6_3(
+    KC_LALT, KC_Q,  KC_W,  KC_F,   KC_P,   KC_B,   KC_J,   KC_L,    KC_U,    KC_Y,   KC_QUOT, KC_LALT,
+    KC_LCTL, KC_A,  KC_R,  KC_S,   KC_T,   KC_G,   KC_M,   KC_N,    KC_E,    KC_I,   KC_O,    KC_LCTL,
+    KC_LSFT, KC_Z,  KC_X,  KC_C,   KC_D,   KC_V,   KC_K,   KC_H,    KC_COMM, KC_DOT, KC_SLSH, KC_LSFT,
+                           KC_ESC, KC_SPC, KC_TAB, KC_ENT, KC_BSPC, KC_DEL
+  ),
+  [GAME] = LAYOUT_split_3x6_3(
+    KC_LALT, KC_Q,  KC_W,  KC_F,   KC_P,   KC_B,   KC_J,   KC_L,    KC_U,    KC_Y,   KC_QUOT, KC_LALT,
+    KC_LCTL, KC_A,  KC_R,  KC_S,   KC_T,   KC_G,   KC_M,   KC_N,    KC_E,    KC_I,   KC_O,    KC_LCTL,
+    KC_LSFT, KC_Z,  KC_X,  KC_C,   KC_D,   KC_V,   KC_K,   KC_H,    KC_COMM, KC_DOT, KC_SLSH, KC_LSFT,
+                           KC_ESC, KC_SPC, KC_TAB, KC_ENT, KC_BSPC, KC_DEL
   )
 };
+
+
+// custom keycodes
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  if (record->event.pressed) {
+    //set_keylog(keycode, record);
+    switch (keycode) {
+    case changeToDvorak:
+    {
+      // change language
+      if (layer_state_is(HEB))
+      {
+        register_code(KC_LALT);
+        register_code(KC_LSFT);
+        unregister_code(KC_LALT);
+        unregister_code(KC_LSFT);
+      }
+        layer_move(BASE);
+        return false;
+
+      break;
+    }
+    case changeToHebrew:
+    {
+      // change language
+        register_code(KC_LALT);
+        register_code(KC_LSFT);
+        unregister_code(KC_LALT);
+        unregister_code(KC_LSFT);
+        layer_move(hebrewLay);
+        return false;
+      break;
+    }
+    case changeToQwerty:
+    {
+      // change language
+      if (layer_state_is(HEB)){
+        register_code(KC_LALT);
+        register_code(KC_LSFT);
+        unregister_code(KC_LALT);
+        unregister_code(KC_LSFT);
+      }
+      layer_move(GAME);
+      return false;
+      break;
+    }
+  }
+  }
+  return true;
+}
