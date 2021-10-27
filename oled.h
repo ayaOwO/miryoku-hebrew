@@ -9,11 +9,6 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     return OLED_ROTATION_270;//rotation;
 }
 
-void keyboard_post_init_user(void) {
-  rgblight_enable_noeeprom();
-  rgblight_sethsv_noeeprom(HSV_TEAL); // or even sth. like rgblight_sethsv_noeeprom(HSV_TEAL);
-}
-
 
 void oled_task_user(void) {
     if (is_master) {//is_keyboard_left()) {
@@ -60,9 +55,7 @@ void oled_task_user(void) {
 
 
 void oled_render_layer_state(void) {
-
-    
-    oled_set_cursor(0, 6);
+    // oled_set_cursor(0, 6);
     switch (get_highest_layer(layer_state)) {
         case NAV:
         {
@@ -98,7 +91,7 @@ void oled_render_layer_state(void) {
         }
         default:
         {
-            oled_write_ln_P(PSTR("FUN"), false);
+            oled_write_ln_P(PSTR("NON DV"), false);
             break;
         }
     }
