@@ -44,13 +44,13 @@ void oled_render_layer_state(void) {
             oled_write_ln_P(PSTR("MEDIA"), false);
             break;
         }
-        case NUM:
+        case NUM: case HEBNUM:
         {
             oled_write_ln_P(PSTR("NUM  "), false);
             break;
         }
 
-        case SYM:
+        case SYM: case HEBSYM:
         {
             oled_write_ln_P(PSTR("SYM  "), false);
             break;

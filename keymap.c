@@ -6,6 +6,7 @@
 
 #include "keymap.h"
 #include "customKeyCodes.h"
+#include "keymap_hebrew.h"
 #ifdef OLED_ENABLE
 #include "oled.h"
 #endif
@@ -239,10 +240,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     U_NP,    U_NP,    KC_BTN2, KC_BTN3, KC_BTN1, KC_BTN1, KC_BTN3, KC_BTN2, U_NP,    U_NP
   ),
   [HEB] = LAYOUT_split_3x6_3(
-    U_NU,           KC_Q,              KC_W,              KC_E,              KC_R,              KC_T,              KC_Y,              KC_U,              KC_I,              KC_O,              KC_P,                U_NU, 
-    changeToQwerty, LGUI_T(KC_A),      LALT_T(KC_S),      LCTL_T(KC_D),      LSFT_T(KC_F),      KC_G,              KC_H,              LSFT_T(KC_J),      LCTL_T(KC_K),      LALT_T(KC_L),      LGUI_T(KC_SCLN),     changeToQwerty,
-    changeToDvorak, LT(BUTTON, KC_Z),  ALGR_T(KC_X),      KC_C,              KC_V,              KC_B,              KC_N,              KC_M,              KC_COMM,           ALGR_T(KC_DOT),    LT(BUTTON, KC_SLSH), changeToDvorak,
-                                                          LT(MEDIA, KC_ESC), LT(NAV, KC_SPC),   LT(MOUSE, KC_TAB), LT(SYM, KC_ENT),   LT(NUM, KC_BSPC),  LT(FUN, KC_DEL)
+    U_NU,           KC_Q,              KC_W,              KC_E,              KC_R,              KC_T,              KC_Y,               KC_U,                 KC_I,              KC_O,              KC_P,                U_NU, 
+    changeToQwerty, LGUI_T(KC_A),      LALT_T(KC_S),      LCTL_T(KC_D),      LSFT_T(KC_F),      KC_G,              KC_H,               LSFT_T(KC_J),         LCTL_T(KC_K),      LALT_T(KC_L),      LGUI_T(KC_SCLN),     changeToQwerty,
+    changeToDvorak, LT(BUTTON, KC_Z),  ALGR_T(KC_X),      KC_C,              KC_V,              KC_B,              KC_N,               KC_M,                 KC_COMM,           ALGR_T(KC_DOT),    LT(BUTTON, KC_SLSH), changeToDvorak,
+                                                          LT(MEDIA, KC_ESC), LT(NAV, KC_SPC),   LT(MOUSE, KC_TAB), LT(HEBSYM, KC_ENT), LT(HEBNUM, KC_BSPC),  LT(FUN, KC_DEL)
+  ),
+  [HEBNUM] = LAYOUT_miryoku(
+    IL_LBRC, KC_7,    KC_8,    KC_9,    IL_RBRC, U_NA,    U_NA,    U_NA,    U_NA,    RESET,
+    KC_GRV,  KC_4,    KC_5,    KC_6,    KC_EQL,  U_NA,    KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI,
+    KC_TILD, KC_1,    KC_2,    KC_3,    KC_BSLS, U_NA,    U_NA,    U_NA,    KC_ALGR, U_NA,
+    U_NP,    U_NP,    IL_DOT,  KC_0,    KC_MINS, U_NA,    U_NA,    U_NA,    U_NP,    U_NP
+  ),
+  [HEBSYM] = LAYOUT_miryoku(
+    IL_LCBR, KC_AMPR, KC_ASTR, KC_LPRN, IL_RCBR, U_NA,    U_NA,    U_NA,    U_NA,    RESET,
+    KC_COLN, KC_DLR,  KC_PERC, KC_CIRC, KC_PLUS, U_NA,    KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI,
+    KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_PIPE, U_NA,    U_NA,    U_NA,    KC_ALGR, U_NA,
+    U_NP,    U_NP,    IL_LPRN, IL_RPRN, KC_UNDS, U_NA,    U_NA,    U_NA,    U_NP,    U_NP
   ),
   [GAME] = LAYOUT_split_3x6_3(
     KC_LALT, KC_Q,  KC_W,  KC_E,   KC_R,   KC_T,   KC_Y,   KC_U,    KC_I,    KC_O,   KC_P,    KC_LALT,
