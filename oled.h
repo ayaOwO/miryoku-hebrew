@@ -14,9 +14,24 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 void oled_render_layer_state(void) {
     // oled_set_cursor(0, 6);
     switch (get_highest_layer(layer_state)) {
+        case BASE:
+        {
+            oled_write_ln_P(PSTR("DV   "), false);
+            break;
+        }
+        case HEB:
+        {
+            oled_write_ln_P(PSTR("HEB  "), false);
+            break;
+        }
+        case GAME:
+        {
+            oled_write_ln_P(PSTR("GAME "), false);
+            break;
+        }
         case NAV:
         {
-            oled_write_ln_P(PSTR("NAV"), false);
+            oled_write_ln_P(PSTR("NAV  "), false);
             break;
         }
         case MOUSE:
@@ -24,7 +39,6 @@ void oled_render_layer_state(void) {
             oled_write_ln_P(PSTR("MOUSE"), false);
             break;
         }
-
         case MEDIA:
         {
             oled_write_ln_P(PSTR("MEDIA"), false);
@@ -32,23 +46,18 @@ void oled_render_layer_state(void) {
         }
         case NUM:
         {
-            oled_write_ln_P(PSTR("NUM"), false);
+            oled_write_ln_P(PSTR("NUM  "), false);
             break;
         }
 
         case SYM:
         {
-            oled_write_ln_P(PSTR("SYM"), false);
+            oled_write_ln_P(PSTR("SYM  "), false);
             break;
         }
         case FUN:
         {
-            oled_write_ln_P(PSTR("FUN"), false);
-            break;
-        }
-        default:
-        {
-            oled_write_ln_P(PSTR("NON DV"), false);
+            oled_write_ln_P(PSTR("FUN  "), false);
             break;
         }
     }
