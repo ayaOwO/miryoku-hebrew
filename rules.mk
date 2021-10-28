@@ -8,11 +8,11 @@ EXTRAKEY_ENABLE = yes # Audio control and System control
 AUTO_SHIFT_ENABLE = yes # Auto Shift
 
 # oled support
-OLED_DRIVER_ENABLE = yes
+OLED_ENABLE = yes
 # rgb support
 # RGBLIGHT_ENABLE = yes
 # enable if file size is too big
-LTO_ENABLE = yes
+#LTO_ENABLE = yes
 
 # alternative layouts:
 

@@ -6,6 +6,7 @@
 #pragma once
 
 #define EE_HANDS
+#define USE_I2C
 
 
 // default but used in macros
