@@ -145,7 +145,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     U_NP,              U_NP,              LT(MEDIA, KC_ESC), LT(NAV, KC_SPC),   LT(MOUSE, KC_TAB), LT(SYM, KC_ENT),   LT(NUM, KC_BSPC),  LT(FUN, KC_DEL),   U_NP,              U_NP
   #elif defined MIRYOKU_ALPHAS_DVORAK
     U_NU,           KC_QUOT,             KC_COMM,           KC_DOT,            KC_P,              KC_Y,              KC_F,              KC_G,              KC_C,              KC_R,              KC_L,             U_NU,
-    changeToQwerty, LGUI_T(KC_A),        LALT_T(KC_O),      LCTL_T(KC_E),      LSFT_T(KC_U),      KC_I,              KC_D,              LSFT_T(KC_H),      LCTL_T(KC_T),      LALT_T(KC_N),      LGUI_T(KC_S),     changeToQwerty,
+    changeToQwerty, LGUI_T(KC_A),        LALT_T(KC_O),      LCTL_T(KC_E),      LSFT_T(KC_U),      KC_I,              KC_D,              RSFT_T(KC_H),      RCTL_T(KC_T),      RALT_T(KC_N),      RGUI_T(KC_S),     changeToQwerty,
     changeToHebrew, LT(BUTTON, KC_SLSH), ALGR_T(KC_Q),      KC_J,              KC_K,              KC_X,              KC_B,              KC_M,              KC_W,              ALGR_T(KC_V),      LT(BUTTON, KC_Z), changeToHebrew,
                                                             LT(MEDIA, KC_ESC), LT(NAV, KC_SPC),   LT(MOUSE, KC_TAB), LT(SYM, KC_ENT),   LT(NUM, KC_BSPC),  LT(FUN, KC_DEL)
   #elif defined MIRYOKU_ALPHAS_HALMAK
@@ -241,7 +241,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   [HEB] = LAYOUT_split_3x6_3(
     U_NU,           KC_Q,              KC_W,              KC_E,              KC_R,              KC_T,              KC_Y,               KC_U,                 KC_I,              KC_O,              KC_P,                U_NU, 
-    changeToQwerty, LGUI_T(KC_A),      LALT_T(KC_S),      LCTL_T(KC_D),      LSFT_T(KC_F),      KC_G,              KC_H,               LSFT_T(KC_J),         LCTL_T(KC_K),      LALT_T(KC_L),      LGUI_T(KC_SCLN),     changeToQwerty,
+    changeToQwerty, LGUI_T(KC_A),      LALT_T(KC_S),      LCTL_T(KC_D),      LSFT_T(KC_F),      KC_G,              KC_H,               RSFT_T(KC_J),         RCTL_T(KC_K),      RALT_T(KC_L),      RGUI_T(KC_SCLN),     changeToQwerty,
     changeToDvorak, LT(BUTTON, KC_Z),  ALGR_T(KC_X),      KC_C,              KC_V,              KC_B,              KC_N,               KC_M,                 KC_COMM,           ALGR_T(KC_DOT),    LT(BUTTON, KC_SLSH), changeToDvorak,
                                                           LT(MEDIA, KC_ESC), LT(NAV, KC_SPC),   LT(MOUSE, KC_TAB), LT(HEBSYM, KC_ENT), LT(HEBNUM, KC_BSPC),  LT(FUN, KC_DEL)
   ),
