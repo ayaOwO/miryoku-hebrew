@@ -7,7 +7,6 @@
 
 #define EE_HANDS
 
-
 // default but used in macros
 #undef TAPPING_TERM
 #define TAPPING_TERM 200
@@ -52,6 +51,6 @@ KC_NO, K20,   K21,   K22,   K23,   K24,          K25,   K26,   K27,   K28,   K29
                      K32,   K33,   K34,          K35,   K36,   K37\
 )
 
-
-
-
+#ifdef RGBLIGHT_ENABLE
+#include "RGBLight.h"
+#endif

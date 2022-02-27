@@ -10,9 +10,6 @@
 #ifdef OLED_ENABLE
 #include "oled.h"
 #endif
-#ifdef RGBLIGHT_ENABLE
-#include "RGBLight.h"
-#endif
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -264,15 +261,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                            KC_ESC, KC_SPC, KC_TAB, KC_ENT, KC_BSPC, KC_DEL
   ),
   [STENO] = LAYOUT_split_3x6_3(
-    KC_LSFT, KC_Z,  KC_X, KC_ESC, KC_SPC, KC_TAB, KC_ENT, KC_BSPC, KC_DEL, KC_DOT, KC_SLSH,   changeToQwerty,
-    KC_LALT, KC_Q,  KC_W,  KC_E,   KC_R,   KC_T,   KC_Y,   KC_U,    KC_I,    KC_O,   KC_P,    changeToHebrew,
-    KC_LCTL, KC_A,  KC_S,  KC_D,   KC_F,   KC_G,   KC_H,   KC_J,    KC_K,    KC_L,   KC_O,    changeToDvorak,
+    KC_LSFT, KC_Z,  KC_X, KC_ESC, KC_SPC, KC_TAB, KC_ENT, KC_BSPC, KC_DEL, KC_DOT, KC_SLSH, changeToQwerty,
+    KC_LALT, KC_Q,  KC_W,  KC_E,   KC_R,   KC_T,   KC_U,    KC_I,    KC_O,   KC_P, KC_LBRC, changeToHebrew,
+    KC_LCTL, KC_A,  KC_S,  KC_D,   KC_F,   KC_G,   KC_J,    KC_K,    KC_L,   KC_SCLN, KC_QUOT, changeToDvorak,
                            KC_C,   KC_V,   KC_B,   KC_N,   KC_M,    KC_COMM
   )
 };
-
-// RGB
-void keyboard_post_init_user(void) {
-  rgblight_enable_noeeprom();
-  rgblight_sethsv_noeeprom(HSV_TEAL); // or even sth. like rgblight_sethsv_noeeprom(HSV_TEAL);
-}

@@ -110,6 +110,11 @@ void oled_render_layer_state(void) {
             oled_write_ln_P(PSTR("FUN"), false);
             break;
         }
+        case STENO:
+        {
+            oled_write_ln_P(PSTR("STENO"), false);
+            break;
+        }
     }
 }
 

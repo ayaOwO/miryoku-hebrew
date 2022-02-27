@@ -9,10 +9,11 @@ AUTO_SHIFT_ENABLE = yes # Auto Shift
 
 # oled support
 OLED_ENABLE = yes
+OLED_DRIVER = SSD1306
 # rgb support
-# RGBLIGHT_ENABLE = yes
+#RGBLIGHT_ENABLE = yes
 # enable if file size is too big
-#LTO_ENABLE = yes
+LTO_ENABLE = yes
 
 # alternative layouts:
 
