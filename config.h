@@ -38,6 +38,14 @@
 #undef MOUSEKEY_TIME_TO_MAX
 #define MOUSEKEY_TIME_TO_MAX    64
 
+// RGB
+#define RGBLED_NUM 27
+#define RGBLIGHT_LIMIT_VAL 120
+#define RGBLIGHT_SLEEP
+#define RGBLIGHT_DEFAULT_HUE 128
+#define RGBLIGHT_DEFAULT_SAT 255
+#define RGBLIGHT_DEFAULT_VAL 128
+
 // 6x3 corne layout
 #define LAYOUT_miryoku(\
        K00,   K01,   K02,   K03,   K04,          K05,   K06,   K07,   K08,   K09,\
