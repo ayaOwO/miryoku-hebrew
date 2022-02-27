@@ -80,6 +80,11 @@ void oled_render_layer_state(void) {
             oled_write_raw_P(qwerty_logo, 128);
             break;
         }
+        case STENO:
+        {
+            oled_write_ln_P(PSTR("STENO"), false);
+            break;
+        }
         case NAV:
         {
             oled_write_ln_P(PSTR("NAV"), false);
