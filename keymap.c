@@ -144,7 +144,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     LT(BUTTON, KC_Z),  ALGR_T(KC_X),      KC_C,              KC_D,              KC_V,              KC_M,              KC_H,              KC_COMM,           ALGR_T(KC_DOT),    LT(BUTTON, KC_SLSH),
     U_NP,              U_NP,              LT(MEDIA, KC_ESC), LT(NAV, KC_SPC),   LT(MOUSE, KC_TAB), LT(SYM, KC_ENT),   LT(NUM, KC_BSPC),  LT(FUN, KC_DEL),   U_NP,              U_NP
   #elif defined MIRYOKU_ALPHAS_DVORAK
-    U_NU,           KC_QUOT,             KC_COMM,           KC_DOT,            KC_P,              KC_Y,              KC_F,              KC_G,              KC_C,              KC_R,              KC_L,             U_NU,
+    changeToSteno,  KC_QUOT,             KC_COMM,           KC_DOT,            KC_P,              KC_Y,              KC_F,              KC_G,              KC_C,              KC_R,              KC_L,             changeToSteno,
     changeToQwerty, LGUI_T(KC_A),        LALT_T(KC_O),      LCTL_T(KC_E),      LSFT_T(KC_U),      KC_I,              KC_D,              RSFT_T(KC_H),      RCTL_T(KC_T),      RALT_T(KC_N),      RGUI_T(KC_S),     changeToQwerty,
     changeToHebrew, LT(BUTTON, KC_SLSH), ALGR_T(KC_Q),      KC_J,              KC_K,              KC_X,              KC_B,              KC_M,              KC_W,              ALGR_T(KC_V),      LT(BUTTON, KC_Z), changeToHebrew,
                                                             LT(MEDIA, KC_ESC), LT(NAV, KC_SPC),   LT(MOUSE, KC_TAB), LT(SYM, KC_ENT),   LT(NUM, KC_BSPC),  LT(FUN, KC_DEL)
@@ -240,7 +240,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     U_NP,    U_NP,    KC_BTN2, KC_BTN3, KC_BTN1, KC_BTN1, KC_BTN3, KC_BTN2, U_NP,    U_NP
   ),
   [HEB] = LAYOUT_split_3x6_3(
-    U_NU,           KC_Q,              KC_W,              KC_E,              KC_R,              KC_T,              KC_Y,               KC_U,                 KC_I,              KC_O,              KC_P,                U_NU, 
+    changeToSteno,  KC_Q,              KC_W,              KC_E,              KC_R,              KC_T,              KC_Y,               KC_U,                 KC_I,              KC_O,              KC_P,                changeToSteno, 
     changeToQwerty, LGUI_T(KC_A),      LALT_T(KC_S),      LCTL_T(KC_D),      LSFT_T(KC_F),      KC_G,              KC_H,               RSFT_T(KC_J),         RCTL_T(KC_K),      RALT_T(KC_L),      RGUI_T(KC_SCLN),     changeToQwerty,
     changeToDvorak, LT(BUTTON, KC_Z),  ALGR_T(KC_X),      KC_C,              KC_V,              KC_B,              KC_N,               KC_M,                 KC_COMM,           ALGR_T(KC_DOT),    LT(BUTTON, KC_SLSH), changeToDvorak,
                                                           LT(MEDIA, KC_ESC), LT(NAV, KC_SPC),   LT(MOUSE, KC_TAB), LT(HEBSYM, KC_ENT), LT(HEBNUM, KC_BSPC),  LT(FUN, KC_DEL)
@@ -258,9 +258,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     U_NP,    U_NP,    IL_LPRN, IL_RPRN, KC_UNDS, U_NA,    U_NA,    U_NA,    U_NP,    U_NP
   ),
   [GAME] = LAYOUT_split_3x6_3(
-    KC_LALT, KC_Q,  KC_W,  KC_E,   KC_R,   KC_T,   KC_Y,   KC_U,    KC_I,    KC_O,   KC_P,    KC_LALT,
+    KC_LALT, KC_Q,  KC_W,  KC_E,   KC_R,   KC_T,   KC_Y,   KC_U,    KC_I,    KC_O,   KC_P,    changeToSteno,
     KC_LCTL, KC_A,  KC_S,  KC_D,   KC_F,   KC_G,   KC_H,   KC_J,    KC_K,    KC_L,   KC_O,    changeToHebrew,
     KC_LSFT, KC_Z,  KC_X,  KC_C,   KC_V,   KC_B,   KC_N,   KC_M,    KC_COMM, KC_DOT, KC_SLSH, changeToDvorak,
                            KC_ESC, KC_SPC, KC_TAB, KC_ENT, KC_BSPC, KC_DEL
+  ),
+  [STENO] = LAYOUT_split_3x6_3(
+    KC_LSFT, KC_Z,  KC_X, KC_ESC, KC_SPC, KC_TAB, KC_ENT, KC_BSPC, KC_DEL, KC_DOT, KC_SLSH,   changeToQwerty,
+    KC_LALT, KC_Q,  KC_W,  KC_E,   KC_R,   KC_T,   KC_Y,   KC_U,    KC_I,    KC_O,   KC_P,    changeToHebrew,
+    KC_LCTL, KC_A,  KC_S,  KC_D,   KC_F,   KC_G,   KC_H,   KC_J,    KC_K,    KC_L,   KC_O,    changeToDvorak,
+                           KC_C,   KC_V,   KC_B,   KC_N,   KC_M,    KC_COMM
   )
 };
+
+// RGB
+void keyboard_post_init_user(void) {
+  rgblight_enable_noeeprom();
+  rgblight_sethsv_noeeprom(HSV_TEAL); // or even sth. like rgblight_sethsv_noeeprom(HSV_TEAL);
+}
