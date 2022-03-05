@@ -119,7 +119,7 @@ void oled_render_layer_state(void) {
 }
 
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
     if (is_keyboard_master()) {
         oled_render_layer_state();
     } else {
@@ -160,4 +160,5 @@ void oled_task_user(void) {
         };
       oled_write_raw_P(YOUR_logo, sizeof(YOUR_logo));
     }
+    return false;
 }
