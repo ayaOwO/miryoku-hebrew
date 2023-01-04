@@ -1,0 +1,49 @@
+// enables oled support
+#ifdef OLED_ENABLE
+bool oled_task_user(void) {
+    switch (get_highest_layer(layer_state)) {
+        case U_BASE:
+        {
+            oled_write_ln_P(PSTR("BASE"), false);
+            break;
+        }
+        case U_NAV:
+        {
+            oled_write_ln_P(PSTR("NAV"), false);
+            break;
+        }
+        case U_MEDIA:
+        {
+            oled_write_ln_P(PSTR("MEDIA"), false);
+            break;
+        }
+        case U_NUM:
+        {
+            oled_write_ln_P(PSTR("NUM"), false);
+            break;
+        }
+        case U_MOUSE:
+        {
+            oled_write_ln_P(PSTR("MOUSE"), false);
+            break;
+        }
+        case U_SYM:
+        {
+            oled_write_ln_P(PSTR("SYM"), false);
+            break;
+        }
+        case U_FUN:
+        {
+            oled_write_ln_P(PSTR("FUN"), false);
+            break;
+        }
+        default:
+        {
+            oled_write_ln_P(PSTR("NO CLUE"), false);
+            break;
+        }
+    }
+    return false;
+}
+
+#endif
