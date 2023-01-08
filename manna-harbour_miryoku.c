@@ -7,6 +7,7 @@
 
 #include "manna-harbour_miryoku.h"
 #include "oled.h"
+#include "change_language.h"
 
 
 // Additional Features double tap guard
@@ -28,6 +29,7 @@ void u_td_fn_boot(qk_tap_dance_state_t *state, void *user_data) { \
 void u_td_fn_U_##LAYER(qk_tap_dance_state_t *state, void *user_data) { \
   if (state->count == 2) { \
     default_layer_set((layer_state_t)1 << U_##LAYER); \
+    CHANGE_LANGUAGE \
   } \
 }
 MIRYOKU_LAYER_LIST
