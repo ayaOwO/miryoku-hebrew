@@ -28,20 +28,10 @@ void render_logo(void){
 
 bool oled_task_user(void) {
     if (is_keyboard_master()) {
-        switch (get_highest_layer(layer_state)) {
+        switch (get_highest_layer(layer_state|default_layer_state)) {
             case U_NAV:
             {
                 oled_write_ln_P(PSTR("NAV"), false);
-                break;
-            }
-            case U_EXTRA:
-            {
-                oled_write_ln_P(PSTR("EXTRA"), false);
-                break;
-            }
-            case U_TAP:
-            {
-                oled_write_ln_P(PSTR("TAP"), false);
                 break;
             }
             case U_MEDIA:
@@ -69,9 +59,24 @@ bool oled_task_user(void) {
                 oled_write_ln_P(PSTR("FUN"), false);
                 break;
             }
+            case U_BUTTON:
+            {
+                oled_write_ln_P(PSTR("BUTTON"), false);
+                break;
+            }
             case U_BASE:
             {
                 oled_write_ln_P(PSTR("BASE"), false);
+                break;
+            }
+            case U_EXTRA:
+            {
+                oled_write_ln_P(PSTR("EXTRA"), false);
+                break;
+            }
+            case U_TAP:
+            {
+                oled_write_ln_P(PSTR("TAP"), false);
                 break;
             }
             default:
